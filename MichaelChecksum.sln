@@ -1,9 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.572
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MichaelChecksum", "MichaelChecksum\MichaelChecksum.csproj", "{C97FB990-EC5E-4726-8FF9-BCEF0DBB4289}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MichaelChecksum", "MichaelChecksum\MichaelChecksum.csproj", "{C97FB990-EC5E-4726-8FF9-BCEF0DBB4289}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MichaelChecksum.Core", "MichaelChecksum.Core\MichaelChecksum.Core.csproj", "{925423BD-2E51-4C0A-8BB9-FFB6286B2FF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MichaelChecksum.Core.Tests", "MichaelChecksum.Core.Tests\MichaelChecksum.Core.Tests.csproj", "{5F7223D7-121B-423C-8A50-F85CC0555E39}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{6952C718-B87C-40A0-8842-95B40A6079EB}"
+	ProjectSection(SolutionItems) = preProject
+		run.bat = run.bat
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +24,14 @@ Global
 		{C97FB990-EC5E-4726-8FF9-BCEF0DBB4289}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C97FB990-EC5E-4726-8FF9-BCEF0DBB4289}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C97FB990-EC5E-4726-8FF9-BCEF0DBB4289}.Release|Any CPU.Build.0 = Release|Any CPU
+		{925423BD-2E51-4C0A-8BB9-FFB6286B2FF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{925423BD-2E51-4C0A-8BB9-FFB6286B2FF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{925423BD-2E51-4C0A-8BB9-FFB6286B2FF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{925423BD-2E51-4C0A-8BB9-FFB6286B2FF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F7223D7-121B-423C-8A50-F85CC0555E39}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F7223D7-121B-423C-8A50-F85CC0555E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F7223D7-121B-423C-8A50-F85CC0555E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F7223D7-121B-423C-8A50-F85CC0555E39}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

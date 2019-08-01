@@ -7,9 +7,15 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MichaelChecksum.Pages
 {
+    /// <summary>
+    /// Model for privacy page
+    /// </summary>
     public class PrivacyModel : PageModel
     {
-        public void OnGet()
+
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+
+        public static void OnGet()
         {
         }
     }
