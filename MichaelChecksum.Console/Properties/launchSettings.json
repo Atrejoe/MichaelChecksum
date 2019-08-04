@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "MichaelChecksum.Console": {
+      "commandName": "Project",
+      "commandLineArgs": "../../../../readme.md"
+    }
+  }
+}

@@ -46,6 +46,17 @@ namespace MichaelChecksum.Core
                 return GetHash(address, sha1);
         }
 
+        /// <summary>
+        /// <see cref="SHA1"/> overload for <see cref="GetHash(Uri, HashAlgorithm)"/>.
+        /// </summary>
+        /// <param name="file">File</param>
+        /// <returns></returns>
+        public static string GetHash(FileInfo file)
+        {
+            using (var sha1 = SHA1.Create())
+                return GetHash(file, sha1);
+        }
+
         #endregion
 
         /// <summary>
@@ -97,6 +108,27 @@ namespace MichaelChecksum.Core
             using (var stream = new MemoryStream(wc.DownloadData(address)))
                 hash = algorithm.ComputeHash(stream);
             
+            return hash.ConvertToString();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="file">The file to read</param>
+        /// <param name="algorithm"></param>
+        /// <returns></returns>
+        public static string GetHash(FileInfo file, HashAlgorithm algorithm)
+        {
+            if (file == null)
+                throw new ArgumentNullException(nameof(file));
+
+            if (algorithm == null)
+                throw new ArgumentNullException(nameof(algorithm));
+
+            byte[] hash;
+            using (var stream = file.OpenRead())
+                hash = algorithm.ComputeHash(stream);
+
             return hash.ConvertToString();
         }
     }
