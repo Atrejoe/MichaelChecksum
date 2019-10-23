@@ -7,6 +7,9 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <WarningsAsErrors />
     <NoWarn />
+    <ApplicationIcon>..\MichaelChecksum.ico</ApplicationIcon>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Version>0.0.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

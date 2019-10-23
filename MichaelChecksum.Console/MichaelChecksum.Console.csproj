@@ -12,22 +12,53 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>michaelchecksum</ToolCommandName>
-    <Version>0.0.0.1</Version>
-    <AssemblyVersion>0.0.0.1</AssemblyVersion>
+    <Version>0.0.0.2</Version>
     <Company></Company>
     <Authors>Robert Sirre</Authors>
     <Product>MichaelChecksum</Product>
     <Description>A .Net core global tool for checksum calculation.</Description>
-    <PackageTags>checksm sha1 shamone sha1mone</PackageTags>
+    <PackageTags>checksum sha1 shamone sha1mone</PackageTags>
     <PackageReleaseNotes>0.0.0.1 First release</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
+    <ApplicationIcon>C:\Projects\MichaelChecksum\MichaelChecksum.ico</ApplicationIcon>
+    <PackageIcon>MichaelChecksum.png</PackageIcon>
+    <PackageIconUrl />
+    <RepositoryUrl>https://github.com/Atrejoe/MichaelChecksum</RepositoryUrl>
+    <RepositoryType>Git</RepositoryType>
+    <PackageProjectUrl>http://michaelchecksum.robertsirre.nl</PackageProjectUrl>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\MichaelChecksum.png" Link="MichaelChecksum.png">
+      <Pack>true</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MichaelChecksum.Core\MichaelChecksum.Core.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>

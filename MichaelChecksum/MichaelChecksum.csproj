@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="..\MichaelChecksum.ico" Link="wwwroot\favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Pages\Privacy.cshtml" />
   </ItemGroup>
 

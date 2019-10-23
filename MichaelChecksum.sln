@@ -12,6 +12,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionItems", "{6952C718-B87C-40A0-8842-95B40A6079EB}"
 	ProjectSection(SolutionItems) = preProject
 		Dockerfile = Dockerfile
+		MichaelChecksum.ico = MichaelChecksum.ico
+		MichaelChecksum.png = MichaelChecksum.png
 		ReadMe.md = ReadMe.md
 		run.bat = run.bat
 	EndProjectSection

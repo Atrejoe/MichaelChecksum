@@ -44,7 +44,7 @@ namespace MichaelChecksum
             var hash = Hashing.GetHash(url);
 
             return File(
-                fileContents: Encoding.UTF8.GetBytes(string.Format(CultureInfo.InvariantCulture, UI.SVG(light), hash)),
+                fileContents: Encoding.UTF8.GetBytes(string.Format(CultureInfo.InvariantCulture, UI.SVG(Request.Host.Host, light), hash)),
                 contentType: "image/svg+xml");
         }
     }

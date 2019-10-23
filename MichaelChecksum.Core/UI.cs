@@ -32,7 +32,7 @@ namespace MichaelChecksum.Core
         /// <summary>
         /// The SVG for showing the calculated hash in a SVG badge.
         /// </summary>
-        public static string SVG(bool light = false)
+        public static string SVG([Required]string hostname, bool light = false)
         {
             return $@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
 <svg
@@ -55,9 +55,10 @@ namespace MichaelChecksum.Core
 <text
    xml:space=""preserve""
    style=""font-family:Haettenschweiler;font-size:15px;""
-   x=""267""
+   text-anchor=""end"" 
+   x=""370""
    y=""27""
-   >MICHAELCHECKSUM.NET</text>
+   >{(hostname??"").ToUpper(CultureInfo.InvariantCulture)}</text>
 
 </svg>";
 
