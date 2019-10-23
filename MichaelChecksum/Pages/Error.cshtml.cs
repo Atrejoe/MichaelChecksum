@@ -12,7 +12,7 @@ namespace MichaelChecksum.Pages
     {
 #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
 
-        public string RequestId { get; set; }
+        public string? RequestId { get; set; }
 
         public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
 

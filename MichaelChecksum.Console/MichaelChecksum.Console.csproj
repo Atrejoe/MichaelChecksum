@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Features>flow-analysis</Features>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -14,11 +14,17 @@
     <ToolCommandName>michaelchecksum</ToolCommandName>
     <Version>0.0.0.1</Version>
     <AssemblyVersion>0.0.0.1</AssemblyVersion>
-    <Company>MichaelChecksum.Console</Company>
+    <Company></Company>
+    <Authors>Robert Sirre</Authors>
+    <Product>MichaelChecksum</Product>
+    <Description>A .Net core global tool for checksum calculation.</Description>
+    <PackageTags>checksm sha1 shamone sha1mone</PackageTags>
+    <PackageReleaseNotes>0.0.0.1 First release</PackageReleaseNotes>
+    <NeutralLanguage>en-US</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.4">
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

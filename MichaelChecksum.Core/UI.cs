@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 
 namespace MichaelChecksum.Core
 {
@@ -12,12 +14,15 @@ namespace MichaelChecksum.Core
         /// <summary>
         /// The favicon version of the Fedora
         /// </summary>
-        public static readonly string Favicon = $@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
-<svg width=""32"" height=""32"" xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"">
+        public static string Favicon(bool light = false, [Range(0,1)] decimal opacity = 1m)
+        {
+            return $@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
+<svg width=""32"" height=""32"" {(opacity==1.0m?"":$@"fill-opacity=""{opacity.ToString(CultureInfo.InvariantCulture)}""")} fill=""{(light ? "white" : "black")}"" xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"">
 <g transform=""matrix(0.05,0,0,0.05,0,0)"">
     {fedora}
 </g>
 </svg>";
+        }
 
         private const string fedora = @"<!-- https://www.svgrepo.com/svg/170982/fedora-hat -->
 	<path d=""m 424.546,104.617 23.071,32.499 v 0 l 38.456,54.169 -1.851,8.856 c -0.347,1.626 -3.67,16.542 -15.224,38.881 -17.544,33.913 -53.591,84.072 -125.671,130.44 -13.701,9.049 -137.734,88.911 -208.921,65.923 l -8.252,-2.667 -20.366,-40.571 h -0.006 L 74.884,330.6 v 0 l -2.905,-5.79 c -33.302,34.324 -104.367,121.417 -55.126,197.963 0,0 75.345,127.393 293.925,-13.232 0,0 349.476,-230.225 295.57,-390.496 0.005,0.006 -26.646,-77.376 -181.802,-14.428 z""/>
@@ -27,11 +32,14 @@ namespace MichaelChecksum.Core
         /// <summary>
         /// The SVG for showing the calculated hash in a SVG badge.
         /// </summary>
-        public static readonly string SVG = $@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
+        public static string SVG(bool light = false)
+        {
+            return $@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
 <svg
    width=""375""
    height=""30""
    enable-background=""true""
+   fill=""{(light?"white":"black")}""
    xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"">
 
 <g transform=""matrix(0.025,0,0,0.025,3,3)"">
@@ -53,5 +61,6 @@ namespace MichaelChecksum.Core
 
 </svg>";
 
-    }
+        }
+    };
 }

@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text;
 using MichaelChecksum.Core;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,7 +11,7 @@ namespace MichaelChecksum
     [Route("[controller]")]
     [ApiController]
     [ApiExplorerSettings(IgnoreApi = true)]
-    public class faviconController : ControllerBase
+    public class FaviconController : ControllerBase
     {
         /// <summary>
         /// Returns the favicon.
@@ -20,9 +21,9 @@ namespace MichaelChecksum
         /// The hash may be cached per url.
         /// </remarks>
         [HttpGet]
-        public ActionResult Icon()
+        public ActionResult Icon(bool light = false, [Range(0, 1)] decimal opacity = 1.0m)
         {
-            return File(Encoding.UTF8.GetBytes(UI.Favicon), "image/svg+xml");
+            return File(Encoding.UTF8.GetBytes(UI.Favicon(light, opacity)), "image/svg+xml");
         }
     }
 }
