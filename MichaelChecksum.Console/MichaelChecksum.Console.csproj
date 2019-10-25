@@ -30,6 +30,15 @@
     <PackageProjectUrl>http://michaelchecksum.robertsirre.nl</PackageProjectUrl>
   </PropertyGroup>
 
+  <Choose>
+    <!-- Do not pack as tool when building a self-contained console-->
+    <When Condition=" '$(Configuration)'=='ReleaseConsole' ">
+      <PropertyGroup>
+        <PackAsTool>false</PackAsTool>
+      </PropertyGroup>
+    </When>
+  </Choose>  
+
   <ItemGroup>
     <None Include="..\MichaelChecksum.png" Link="MichaelChecksum.png">
       <Pack>true</Pack>
