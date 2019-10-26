@@ -5,7 +5,7 @@
 [TOC]
 ## Web API
 
-You can either use the online service at: MichaelChecksum.net or [michaelchecksum.robertsirre.nl](http://michaelchecksum.robertsirre.nl)
+You can either use the online service at: [michaelchecksum.com](http://www.michaelchecksum.com).
 
 This service allows you to externally assert that the file served has the documented checksum, showing an nice badge as a seal of approval.
 
