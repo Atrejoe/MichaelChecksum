@@ -19,17 +19,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Pages\Privacy.cshtml.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Pages\Privacy.cshtml" />
+    <Content Remove="Pages\Shared\_CookieConsentPartial.cshtml" />
   </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="..\MichaelChecksum.ico" Link="wwwroot\favicon.ico" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Pages\Privacy.cshtml" />
-  </ItemGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.6">
