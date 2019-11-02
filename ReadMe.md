@@ -8,6 +8,24 @@ This pun-based tool allows you to calculate checksums. You can either use the on
 ## Web API
 
 This web service allows you to externally assert that the file served has the documented checksum, showing an nice badge as a seal of approval (which you can embed anywhere with an Internet connection).
+<!--
+```mermaid
+%% Basic flow 
+sequenceDiagram
+participant v as Visitor
+participant w as Website
+participant m as Michael Checksum
+
+v->>w : Visits `Download` page
+w->>v : Here is the download link, let Michael Checksum verify that hash for you!
+v->>m : Can you check this file for me?
+m->>w : Can you give me this file?
+w->>m : Returns file
+Note over m:Calculates hash<br/> for the file
+m->>v : This is the hash for your url, SHA1mone!
+Note over v:Shows image that<br/>hash is as<br/>expected, user<br/>can proceed with<br/>the download.
+```
+-->
 
 > For the extra paranoid: this does not assert 100% that when *you* download the same file, it will arrive on *your* machine with the correct checksum. (it may be altered or corrupted on the way to your machine).
 >
@@ -30,3 +48,7 @@ or local:
 - [dotnet runtime](https://dotnet.microsoft.com/download)
 
 >Also see the releases section for when you do not have .Net Core installed.
+
+```
+
+```
