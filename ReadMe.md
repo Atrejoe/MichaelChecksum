@@ -2,7 +2,7 @@
 
 [![Nuget](https://img.shields.io/nuget/dt/michaelchecksum.console?color=blue&label=NuGet&logo=nuget)]( https://www.nuget.org/packages/MichaelChecksum.Console/ ) [![Build status](https://ci.appveyor.com/api/projects/status/5v2fgluxnswctuxl?svg=true)](https://ci.appveyor.com/project/Atrejoe/michaelchecksum) [![GitHub Releases](https://img.shields.io/github/downloads/atrejoe/michaelchecksum/latest/total?logo=github)](https://github.com/Atrejoe/MichaelChecksum/releases/latest)
 
-This pun-based tool allows you to calculate checksums. You can either use the online service at: [michaelchecksum.com](http://www.michaelchecksum.com) or the console version.
+This pun-based tool allows you to calculate checksums. You can either use the online service at: [michaelchecksum.com](https://michaelchecksum.com) or the console version.
 
 [TOC]
 ## Web API
