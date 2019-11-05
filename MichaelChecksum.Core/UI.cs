@@ -32,7 +32,11 @@ namespace MichaelChecksum.Core
         /// <summary>
         /// The SVG for showing the calculated hash in a SVG badge.
         /// </summary>
-        public static string SVG([Required]string hostname, bool light = false)
+        public static string SVG(
+            [Required]string hostname,
+            [Required]string hash,
+            bool light = false, 
+            string stats = null)
         {
             return $@"<?xml version=""1.0"" encoding=""UTF-8"" standalone=""no""?>
 <svg
@@ -41,8 +45,9 @@ namespace MichaelChecksum.Core
    enable-background=""true""
    fill=""{(light?"white":"black")}""
    xmlns=""http://www.w3.org/2000/svg"" xmlns:xlink=""http://www.w3.org/1999/xlink"">
-
+   <title>Hash calculated on {hostname}</title>
 <g transform=""matrix(0.025,0,0,0.025,3,3)"">
+    <title>{stats}</title>
     {fedora}
 </g>
 
@@ -50,7 +55,7 @@ namespace MichaelChecksum.Core
    xml:space=""preserve""
    style=""font-family:Consolas;""
    x=""20""
-   y=""14"">{{0}}</text>
+   y=""14"">{hash}</text>
 
 <text
    xml:space=""preserve""
