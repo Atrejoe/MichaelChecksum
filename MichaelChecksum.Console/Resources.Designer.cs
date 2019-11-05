@@ -70,11 +70,20 @@ namespace MichaelChecksum.Console {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Visit http://michaelchecksum.robertsirre.nl for online checksum calculation..
+        ///   Looks up a localized string similar to Visit https://michaelchecksum.com for online checksum calculation..
         /// </summary>
         internal static string CallToAction_Visit_Website {
             get {
                 return ResourceManager.GetString("CallToAction_Visit_Website", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Failed to read file : {0}.
+        /// </summary>
+        internal static string FailedToReadFile {
+            get {
+                return ResourceManager.GetString("FailedToReadFile", resourceCulture);
             }
         }
         
@@ -97,7 +106,7 @@ namespace MichaelChecksum.Console {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please specify a file to check.
+        ///   Looks up a localized string similar to Please specify a file to check, this can be a local file, UNC path or Url..
         /// </summary>
         internal static string Input_Validation_Missing_File_name {
             get {

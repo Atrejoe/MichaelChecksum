@@ -61,6 +61,8 @@ Install Michael checksum on your machine:
 <pre><code>dotnet tool install -g michaelchecksum.console</code></pre>
 To calculate a checkum of a local file:
 <pre><code>michaelchecksum mydownloadedfile.zip</code></pre>
+To calculate a checkum of a remote:
+<pre><code>michaelchecksum http://download.com/mydownloadedfile.zip</code></pre>
 "; }
 
         /// <summary>

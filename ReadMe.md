@@ -4,6 +4,7 @@
 
 This pun-based tool allows you to calculate checksums. You can either use the online service at: [michaelchecksum.com](https://michaelchecksum.com) or the console version.
 <!--
+
 [TOC]
 -->
 ## Web API
@@ -44,12 +45,21 @@ or local:
 
 ```dotnet tool install --tool-path . michaelchecksum.console```
 
+> For upgrading replace `install` with `update`
+
+### Usage
+
+Calculate a SHA-1 hash using:
+
+```bash
+michaelchecksum myfile.txt         # relative file
+michaelchecksum c:\myfile.txt      # file on a drive (Windows)
+michaelchecksum /path/myfile.txt   # file on a drive (Linux/Mac)
+michaelchecksum https://myfile.txt # file via url
+```
+
 ### Prerequisite
 
 - [dotnet runtime](https://dotnet.microsoft.com/download)
 
->Also see the releases section for when you do not have .Net Core installed.
-
-```
-
-```
+>Also see the [releases section](https://github.com/Atrejoe/MichaelChecksum/releases/latest) for when you do not have .Net Core installed.
