@@ -5,7 +5,7 @@ using System;
 using System.Collections.Concurrent;
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
-using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -55,10 +55,14 @@ namespace MichaelChecksum
         /// <response code="200">Returns the badge as an SVG image.</response>
         /// <response code="400">Argument <paramref name="url"/> invalid, response is WIP.</response>
         /// <response code="413">Argument <paramref name="url"/> refers to a file that is too large. File size has been limited to 100MB. This may change.</response>
+        /// <response code="204">Argument <paramref name="url"/> had connectivity issues, content could not be obtained.</response>
+        /// <response code="404">Argument <paramref name="url"/> refers to a file that does not exist.</response>
         [HttpGet]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status413PayloadTooLarge)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public ActionResult Hash([Url]string url, bool light = false)
         {
             if (!Uri.TryCreate(url, UriKind.Absolute, out var uri))
@@ -88,7 +92,8 @@ namespace MichaelChecksum
                 {
                     HashCalculationFailureReason.Other => new StatusCodeResult(StatusCodes.Status500InternalServerError),
                     HashCalculationFailureReason.TooLarge => new StatusCodeResult(StatusCodes.Status413PayloadTooLarge),
-                    HashCalculationFailureReason.Connectivity => new StatusCodeResult(StatusCodes.Status502BadGateway),
+                    HashCalculationFailureReason.Connectivity => new StatusCodeResult(StatusCodes.Status204NoContent),
+                    HashCalculationFailureReason.NotFound => new StatusCodeResult(StatusCodes.Status404NotFound),
                     _ => new StatusCodeResult(StatusCodes.Status500InternalServerError),
                 };
             else
@@ -131,6 +136,14 @@ namespace MichaelChecksum
                 return new CheckResult()
                 {
                     FailureReason = HashCalculationFailureReason.Connectivity,
+                    Duration = sw.Elapsed
+                };
+            }
+            catch (FileNotFoundException)
+            {
+                return new CheckResult()
+                {
+                    FailureReason = HashCalculationFailureReason.NotFound,
                     Duration = sw.Elapsed
                 };
             }

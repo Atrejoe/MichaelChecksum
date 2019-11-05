@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -30,7 +31,7 @@ namespace MichaelChecksum.Core.Tests
         }
 
         /// <summary>
-        /// Tests <see cref="Hashing.GetHashAsync(Uri, uint)"/> by passing in the Google favicon url
+        /// Tests <see cref="Hashing.GetHashAsync(Uri, uint)"/> by passing in a large download file
         /// </summary>
         [Fact(Timeout = 10000)]
         public async Task GetHashTooLargeTestAsync()
@@ -41,7 +42,25 @@ namespace MichaelChecksum.Core.Tests
             //act & assert
             string actual = null;
             await Assert.ThrowsAsync<FileTooLargeException>(async () => {
-                actual = await Hashing.GetHashAsync(url,1).ConfigureAwait(true);
+                actual = await Hashing.GetHashAsync(url,1000).ConfigureAwait(true);
+            }).ConfigureAwait(false);
+
+            Assert.Null(actual);
+        }
+
+        /// <summary>
+        /// Tests <see cref="Hashing.GetHashAsync(Uri, uint)"/> by passing in a url knowing to respond with 404
+        /// </summary>
+        [Fact]
+        public async Task GetHashFileDoesNotExistAsync()
+        {
+            //arrange
+            var url = new Uri($"https://www.github.com/{Guid.NewGuid()}.extension");
+
+            //act & assert
+            string actual = null;
+            await Assert.ThrowsAsync<FileNotFoundException>(async () => {
+                actual = await Hashing.GetHashAsync(url).ConfigureAwait(true);
             }).ConfigureAwait(false);
 
             Assert.Null(actual);

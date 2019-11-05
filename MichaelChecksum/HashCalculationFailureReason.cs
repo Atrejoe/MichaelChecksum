@@ -16,6 +16,10 @@
         /// <summary>
         /// There was an issue obtaining the file.
         /// </summary>
-        Connectivity
+        Connectivity,
+        /// <summary>
+        /// There was an issue obtaining the fil: the file does not exist
+        /// </summary>
+        NotFound
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Security.Cryptography;
 using System.Text;
@@ -97,6 +98,7 @@ namespace MichaelChecksum.Core
         /// <returns></returns>
         /// <exception cref="FileTooLargeException">When <paramref name="address"/> refers to a file exceeding <paramref name="maxLength"/>.</exception>
         /// <exception cref="FileReadException">Obtaining the failed due to an underlying issue such as network connectivity, DNS failure, server certificate validation or timeout.</exception>
+        /// <exception cref="FileNotFoundException">The file was reported not to exist.</exception>
         public static async Task<string> GetHashAsync(Uri address, HashAlgorithm algorithm, uint maxLength = 0)
         {
             if (algorithm == null)
@@ -171,6 +173,15 @@ namespace MichaelChecksum.Core
                 throw new FileTooLargeException(
                         message: $"File is {response.Content.Headers.ContentLength.GetValueOrDefault():n0} bytes, exceeding the limit of {maxLength:n0}.",
                         paramName: nameof(address));
+
+            switch (response.StatusCode) {
+                case HttpStatusCode.OK:
+                    return;
+                case HttpStatusCode.NotFound:
+                    throw new FileNotFoundException($"File does not exist {response.ReasonPhrase}");
+                default:
+                    throw new FileReadException($"Server responsed {response.StatusCode} ({response.ReasonPhrase})");
+            }
         }
 
         /// <summary>
