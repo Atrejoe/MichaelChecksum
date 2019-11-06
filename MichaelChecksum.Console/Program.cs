@@ -1,4 +1,4 @@
-using MichaelChecksum.Core;
+﻿using MichaelChecksum.Core;
 using System;
 using System.IO;
 using System.Linq;
@@ -33,7 +33,7 @@ namespace MichaelChecksum.Console
                 }
                 catch (FileReadException ex)
                 {
-                    WriteLine(Resources.FailedToReadFile, ex.Message);
+                    WriteLine(ex.Message);
                     return (int)ExitCode.FileNotFound;
                 }
             }
