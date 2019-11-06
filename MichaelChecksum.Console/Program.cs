@@ -1,4 +1,4 @@
-﻿using MichaelChecksum.Core;
+using MichaelChecksum.Core;
 using System;
 using System.IO;
 using System.Linq;
@@ -22,7 +22,8 @@ namespace MichaelChecksum.Console
                 return (int)ExitCode.FileNotSpecified;
             }
 
-            else if (Uri.TryCreate(args[0], UriKind.Absolute, out var url))
+            else if (Uri.TryCreate(args[0], UriKind.Absolute, out var url)
+                && (new []{"http","https"}).Contains(url.Scheme, StringComparer.InvariantCultureIgnoreCase))
             {
                 //File via file web
                 WriteLine(Resources.Calculating_Hash, url);
