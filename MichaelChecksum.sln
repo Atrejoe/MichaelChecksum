@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SolutionItems", "SolutionIt
 		MichaelChecksum.ico = MichaelChecksum.ico
 		MichaelChecksum.png = MichaelChecksum.png
 		publish.bat = publish.bat
+		publishdocker.bat = publishdocker.bat
 		ReadMe.md = ReadMe.md
 		run.bat = run.bat
 	EndProjectSection
