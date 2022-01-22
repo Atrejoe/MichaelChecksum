@@ -20,7 +20,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="CheckResult.cs" />
+    <Compile Remove="ChecksumController.cs" />
     <Compile Remove="Pages\Privacy.cshtml.cs" />
+    <Compile Remove="ShamoneController.cs" />
   </ItemGroup>
 
   <ItemGroup>
