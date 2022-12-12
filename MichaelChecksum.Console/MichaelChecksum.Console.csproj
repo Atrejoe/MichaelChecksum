@@ -48,10 +48,10 @@ Application now returns a non-zero exit code upon failure.
       <Pack>true</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>
+  </ItemGroup>  
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
