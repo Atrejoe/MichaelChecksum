@@ -80,7 +80,10 @@ To calculate a checkum of a remote:
             });
 
             //services.AddRazorPages();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddMvcOptions(options => options.EnableEndpointRouting = false);
+            services.AddMvc()
+                   //.SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                   .AddMvcOptions(options => options.EnableEndpointRouting = false);
+
             services.AddControllersWithViews();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
