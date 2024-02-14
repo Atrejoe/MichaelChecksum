@@ -12,15 +12,6 @@ namespace MichaelChecksum.Core
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FileReadException" /> class.
 		/// </summary>
-		/// <remarks>Adhering to coding guideline: http://msdn.microsoft.com/library/ms182151(VS.100).aspx</remarks>
-		[Obsolete("Specify why the error ocurred.")]
-		public FileReadException() : this("Failed to calculate hash")
-		{
-		}
-
-		/// <summary>
-		/// Initializes a new instance of the <see cref="FileReadException" /> class.
-		/// </summary>
 		/// <param name="message">The message that describes the error</param>
 		/// <remarks>Adhering to coding guideline: http://msdn.microsoft.com/library/ms182151(VS.100).aspx</remarks>
 		public FileReadException(string message) : this(message, null)

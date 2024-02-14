@@ -14,4 +14,4 @@ using System.Diagnostics.CodeAnalysis;
 
 [assembly: SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>", Scope = "member", Target = "~M:MichaelChecksum.Core.FileTooLargeException.#ctor")]
 [assembly: SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>", Scope = "member", Target = "~M:MichaelChecksum.Core.Hashing.GetHash(System.IO.FileInfo,System.Security.Cryptography.HashAlgorithm)~System.String")]
-[assembly: SuppressMessage("Globalization", "CA1303:Do not pass literals as localized parameters", Justification = "<Pending>", Scope = "member", Target = "~M:MichaelChecksum.Core.FileReadException.#ctor")]
+

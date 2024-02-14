@@ -23,23 +23,8 @@ namespace MichaelChecksum.Core
 		/// <returns></returns>
 		public static string GetHash(string input, Encoding encoding = null)
 		{
-			using (var sha1 = SHA1.Create())
-				return GetHash(input, sha1, encoding);
-		}
-
-
-		/// <summary>
-		/// <see cref="SHA1"/> overload for <see cref="GetHashAsync(Uri, HashAlgorithm, uint)"/>.
-		/// </summary>
-		/// <param name="address"></param>
-		/// <param name="maxLength"></param>
-		/// <returns></returns>
-		/// <exception cref="FileTooLargeException">When <paramref name="address"/> refers to a file exceeding <paramref name="maxLength"/>.</exception>
-		/// <exception cref="FileReadException">Obtaining the failed due to an underlying issue such as network connectivity, DNS failure, server certificate validation or timeout.</exception>
-		public static async Task<string> GetHashAsync(Uri address, uint maxLength = 0)
-		{
-			using (var sha1 = SHA1.Create())
-				return await GetHashAsync(address, sha1, maxLength).ConfigureAwait(false);
+			using var sha1 = SHA1.Create();
+			return GetHash(input, sha1, encoding);
 		}
 
 		/// <summary>
@@ -49,8 +34,8 @@ namespace MichaelChecksum.Core
 		/// <returns></returns>
 		public static string GetHash(FileInfo file)
 		{
-			using (var sha1 = SHA1.Create())
-				return GetHash(file, sha1);
+			using var sha1 = SHA1.Create();
+			return GetHash(file, sha1);
 		}
 
 		#endregion
@@ -85,104 +70,7 @@ namespace MichaelChecksum.Core
 
 			var hash = algorithm.ComputeHash(bytes);
 
-			return hash.ConvertToString(); ;
-		}
-
-		private static readonly HttpClient client = new HttpClient();
-		/// <summary>
-		/// 
-		/// </summary>
-		/// <param name="address"></param>
-		/// <param name="algorithm"></param>
-		/// <param name="maxLength"></param>
-		/// <returns></returns>
-		/// <exception cref="FileTooLargeException">When <paramref name="address"/> refers to a file exceeding <paramref name="maxLength"/>.</exception>
-		/// <exception cref="FileReadException">Obtaining the failed due to an underlying issue such as network connectivity, DNS failure, server certificate validation or timeout.</exception>
-		/// <exception cref="FileNotFoundException">The file was reported not to exist.</exception>
-		public static async Task<string> GetHashAsync(Uri address, HashAlgorithm algorithm, uint maxLength = 0)
-		{
-			if (algorithm == null)
-				throw new ArgumentNullException(nameof(algorithm));
-
-			byte[] hash;
-			//using (var wc = new WebClient())
-			//{
-
-			//    bool downloadCancelledDuetoSize = false;
-			//    long fileSize = 0;
-
-			//    using (var tokenSource = new CancellationTokenSource())
-			//    {
-
-			//        wc.DownloadProgressChanged += (sender, args) =>
-			//        {
-			//            if (maxLength > 0
-			//                && (
-			//                   args.TotalBytesToReceive > maxLength
-			//                || args.BytesReceived > maxLength
-			//                ))
-			//            {
-			//                downloadCancelledDuetoSize = true;
-			//                fileSize = args.TotalBytesToReceive;
-
-			//                wc.CancelAsync();
-			//            }
-			//        };
-
-			//        try
-			//        {
-			//            byte[] buffer = await wc.DownloadDataTaskAsync(address).ConfigureAwait(false);
-			//            using (var stream = new MemoryStream(buffer))
-			//                hash = algorithm.ComputeHash(stream);
-			//        }
-			//        catch (TaskCanceledException ex) when (downloadCancelledDuetoSize)
-			//        {
-			//            throw new FileTooLargeException(
-			//                message: $"File is {fileSize:n0} bytes, exceeding the limit of {maxLength:n0}.",
-			//                paramName: nameof(address),
-			//                innerException: ex);
-			//        }
-			//    }
-			//}
-
-			try
-			{
-				using (HttpResponseMessage response = await client.GetAsync(address, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false))
-				{
-					CheckResponse(address, response, maxLength);
-
-					using (Stream stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false))
-					{
-						CheckResponse(address, response, maxLength);
-						hash = algorithm.ComputeHash(stream);
-					}
-
-				}
-			}
-			catch (HttpRequestException ex)
-			{
-				throw new FileReadException($"Failed to read file : {ex.Message}", ex);
-			}
-
 			return hash.ConvertToString();
-		}
-
-		private static void CheckResponse(Uri address, HttpResponseMessage response, uint maxLength)
-		{
-			if (maxLength > 0 && response.Content.Headers.ContentLength.GetValueOrDefault() > maxLength)
-				throw new FileTooLargeException(
-						message: $"File is {response.Content.Headers.ContentLength.GetValueOrDefault():n0} bytes, exceeding the limit of {maxLength:n0}.",
-						paramName: nameof(address));
-
-			switch (response.StatusCode)
-			{
-				case HttpStatusCode.OK:
-					return;
-				case HttpStatusCode.NotFound:
-					throw new FileNotFoundException($"File does not exist {response.ReasonPhrase}");
-				default:
-					throw new FileReadException($"Server responsed {response.StatusCode} ({response.ReasonPhrase})");
-			}
 		}
 
 		/// <summary>
@@ -203,8 +91,8 @@ namespace MichaelChecksum.Core
 
 			try
 			{
-				using (var stream = file.OpenRead())
-					hash = algorithm.ComputeHash(stream);
+				using var stream = file.OpenRead();
+				hash = algorithm.ComputeHash(stream);
 			}
 			catch (UnauthorizedAccessException ex)
 			{
@@ -220,6 +108,74 @@ namespace MichaelChecksum.Core
 			}
 
 			return hash.ConvertToString();
+		}
+
+		private static readonly HttpClient client = new HttpClient();
+
+		/// <summary>
+		/// <see cref="SHA1"/> overload for <see cref="GetHashAsync(Uri, HashAlgorithm, uint)"/>.
+		/// </summary>
+		/// <param name="address"></param>
+		/// <param name="maxLength"></param>
+		/// <returns></returns>
+		/// <exception cref="FileTooLargeException">When <paramref name="address"/> refers to a file exceeding <paramref name="maxLength"/>.</exception>
+		/// <exception cref="FileReadException">Obtaining the failed due to an underlying issue such as network connectivity, DNS failure, server certificate validation or timeout.</exception>
+		public static async Task<string> GetHashAsync(Uri address, uint maxLength = 0)
+		{
+			using var sha1 = SHA1.Create();
+			return await GetHashAsync(address, sha1, maxLength).ConfigureAwait(false);
+		}
+
+		/// <summary>
+		/// 
+		/// </summary>
+		/// <param name="address"></param>
+		/// <param name="algorithm"></param>
+		/// <param name="maxLength"></param>
+		/// <returns></returns>
+		/// <exception cref="FileTooLargeException">When <paramref name="address"/> refers to a file exceeding <paramref name="maxLength"/>.</exception>
+		/// <exception cref="FileReadException">Obtaining the failed due to an underlying issue such as network connectivity, DNS failure, server certificate validation or timeout.</exception>
+		/// <exception cref="FileNotFoundException">The file was reported not to exist.</exception>
+		public static async Task<string> GetHashAsync(Uri address, HashAlgorithm algorithm, uint maxLength = 0)
+		{
+			if (algorithm == null)
+				throw new ArgumentNullException(nameof(algorithm));
+
+			byte[] hash;
+
+			try
+			{
+				using HttpResponseMessage response = await client.GetAsync(address, HttpCompletionOption.ResponseHeadersRead).ConfigureAwait(false);
+				CheckResponse(response, maxLength);
+
+				using Stream stream = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
+				CheckResponse(response, maxLength);
+				hash = algorithm.ComputeHash(stream);
+			}
+			catch (HttpRequestException ex)
+			{
+				throw new FileReadException($"Failed to read file : {ex.Message}", ex);
+			}
+
+			return hash.ConvertToString();
+		}
+
+		private static void CheckResponse(HttpResponseMessage response, uint maxLength)
+		{
+			if (maxLength > 0 && response.Content.Headers.ContentLength.GetValueOrDefault() > maxLength)
+				throw new FileTooLargeException(
+						message: $"File is {response.Content.Headers.ContentLength.GetValueOrDefault():n0} bytes, exceeding the limit of {maxLength:n0}.",
+						paramName: nameof(response));
+
+			switch (response.StatusCode)
+			{
+				case HttpStatusCode.OK:
+					return;
+				case HttpStatusCode.NotFound:
+					throw new FileNotFoundException($"File does not exist {response.ReasonPhrase}");
+				default:
+					throw new FileReadException($"Server responsed {response.StatusCode} ({response.ReasonPhrase})");
+			}
 		}
 	}
 }

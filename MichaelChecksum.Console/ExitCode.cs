@@ -3,7 +3,7 @@
 	/// <summary>
 	/// Possible return codes
 	/// </summary>
-	public enum ExitCode : int
+	public enum ExitCode
 	{
 		/// <summary>
 		/// Indicates that the program exited successfully
