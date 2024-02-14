@@ -1,0 +1,58 @@
+name: Build and test
+
+on:
+  push:
+    branches:
+      - '**'
+  # pull_request:
+  #   branches: [ develop ]
+
+jobs:
+  build:
+    name: Builds and tests libraries & app
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup dotnet
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: |
+          8.0.x
+          
+    # See also DockerFile
+    - name: Update apt-get package index
+      run: sudo apt-get update -y
+
+    - name: Install Ghostscript (for rendering PDFs)
+      run: sudo apt-get install -y ghostscript
+    
+    - name: Install Time Zone data
+      run: sudo apt-get install -y tzdata
+    
+    #- name: Addresses Database Globalization issues
+    #  run: sudo apt-get install -y icu-libs
+      
+    - name: Install dependencies
+      run: dotnet restore MichaelChecksum.sln
+
+    - name: Build
+      run: dotnet build MichaelChecksum.sln --configuration Release --no-restore
+
+    - name: Test
+      run: dotnet test MichaelChecksum.sln --no-restore --verbosity normal --logger "trx;LogFileName=test-results.trx"
+
+    - name: 'Upload Artifact'
+      uses: actions/upload-artifact@v3
+      with:
+        name: testresults
+        path: '**/*.trx'
+        retention-days: 1
+
+    - name: Test Report
+      uses: dorny/test-reporter@v1
+      if: success() || failure()    # run this step even if previous step failed
+      with:
+          name: Dotnet testresult # Name of the check run which will be created
+          path: '**/*.trx'        # All test results
+          reporter: dotnet-trx    # Format of test results
