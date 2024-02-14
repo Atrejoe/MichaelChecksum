@@ -22,7 +22,7 @@ namespace MichaelChecksum.Core.Tests
             var expected = "49263695F6B0CDD72F45CF1B775E660FDC36C606";
 
             //act
-            var actual = await Hashing.GetHashAsync(url).ConfigureAwait(false);
+            var actual = await Hashing.GetHashAsync(url);
 
             //assert
             Trace.WriteLine(actual);
@@ -42,8 +42,8 @@ namespace MichaelChecksum.Core.Tests
             //act & assert
             string actual = null;
             await Assert.ThrowsAsync<FileTooLargeException>(async () => {
-                actual = await Hashing.GetHashAsync(url,1000).ConfigureAwait(true);
-            }).ConfigureAwait(false);
+                actual = await Hashing.GetHashAsync(url,1000);
+            });
 
             Assert.Null(actual);
         }
@@ -60,8 +60,8 @@ namespace MichaelChecksum.Core.Tests
             //act & assert
             string actual = null;
             await Assert.ThrowsAsync<FileNotFoundException>(async () => {
-                actual = await Hashing.GetHashAsync(url).ConfigureAwait(true);
-            }).ConfigureAwait(false);
+                actual = await Hashing.GetHashAsync(url);
+            });
 
             Assert.Null(actual);
         }

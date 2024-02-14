@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Features>flow-analysis</Features>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -12,21 +12,24 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackAsTool>true</PackAsTool>
     <ToolCommandName>michaelchecksum</ToolCommandName>
-    <Version>0.0.0.5</Version>
+    <Version>0.0.0.7</Version>
     <Company></Company>
     <Authors>Robert Sirre</Authors>
     <Product>MichaelChecksum</Product>
     <Description>A .Net core global tool for checksum calculation.</Description>
     <PackageTags>checksum sha1 shamone sha1mone</PackageTags>
-    <PackageReleaseNotes>0.0.0.5 Upgraded to .Net Core 3.1
-Corrected domain name
-0.0.0.4 Added calculation of hashes from urls.
-Application now returns a non-zero exit code upon failure.
-0.0.0.3 Targeted .Net Core 3.0 (instead of 3.1, which is currently experimental).
-0.0.0.2 Console actually performs checks.
-0.0.0.1 First release.</PackageReleaseNotes>
+    <PackageReleaseNotes>
+		0.0.0.7 Upgraded to .Net 8
+		0.0.0.6 Upgraded to .Net 7
+		0.0.0.5 Upgraded to .Net Core 3.1
+		Corrected domain name
+		0.0.0.4 Added calculation of hashes from urls.
+		Application now returns a non-zero exit code upon failure.
+		0.0.0.3 Targeted .Net Core 3.0 (instead of 3.1, which is currently experimental).
+		0.0.0.2 Console actually performs checks.
+		0.0.0.1 First release.</PackageReleaseNotes>
     <NeutralLanguage>en-US</NeutralLanguage>
-    <ApplicationIcon>C:\Projects\MichaelChecksum\MichaelChecksum.ico</ApplicationIcon>
+    <ApplicationIcon>..\MichaelChecksum.ico</ApplicationIcon>
     <PackageIcon>MichaelChecksum.png</PackageIcon>
     <PackageIconUrl />
     <RepositoryUrl>https://github.com/Atrejoe/MichaelChecksum</RepositoryUrl>
@@ -48,10 +51,14 @@ Application now returns a non-zero exit code upon failure.
       <Pack>true</Pack>
       <PackagePath></PackagePath>
     </None>
-  </ItemGroup>
+  </ItemGroup>  
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.1">
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="9.19.0.84025">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

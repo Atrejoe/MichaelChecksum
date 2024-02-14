@@ -79,8 +79,10 @@ To calculate a checkum of a remote:
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            //services.AddRazorPages();
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0).AddMvcOptions(options => options.EnableEndpointRouting = false);
+            services.AddMvc()
+                   //.SetCompatibilityVersion(CompatibilityVersion.Version_3_0)
+                   .AddMvcOptions(options => options.EnableEndpointRouting = false);
+
             services.AddControllersWithViews();
 
             // Register the Swagger generator, defining 1 or more Swagger documents
@@ -99,8 +101,6 @@ To calculate a checkum of a remote:
                     }
                 });
 
-                //c.DescribeAllEnumsAsStrings();
-
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
 
@@ -115,21 +115,19 @@ To calculate a checkum of a remote:
             });
         }
 
-        /// <summary>
-        /// Conventions-based, dependency-injectable configuration method.
-        /// </summary>
-        /// <param name="app"></param>
-        /// <param name="env"></param>
-        /// <remarks>This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</remarks>
-        public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+		/// <summary>
+		/// Conventions-based, dependency-injectable configuration method.
+		/// </summary>
+		/// <param name="app"></param>
+		/// <param name="env"></param>
+		/// <remarks>This method gets called by the runtime. Use this method to configure the HTTP request pipeline.</remarks>
+		[System.Diagnostics.CodeAnalysis.SuppressMessage("Naming", "VSSpell001:Spell Check", Justification = "Convention-based names")]
+		public static void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (app is null)
-                throw new ArgumentNullException(nameof(app));
+			ArgumentNullException.ThrowIfNull(app);
+			ArgumentNullException.ThrowIfNull(env);
 
-            if (env is null)
-                throw new ArgumentNullException(nameof(env));
-
-            app.UseStaticFiles();
+			app.UseStaticFiles();
             app.UseRouting();
             app.UseForwardedHeaders(new ForwardedHeadersOptions
             {
@@ -148,8 +146,6 @@ To calculate a checkum of a remote:
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
-            //app.UseStaticFiles();
             app.UseCookiePolicy();
             
             app.UseMvc((routes) =>

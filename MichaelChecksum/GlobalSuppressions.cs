@@ -4,5 +4,8 @@
 // Project-level suppressions either have no target or are given 
 // a specific target and scoped to a namespace, type, member, etc.
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1054:Uri parameters should not be strings", Justification = "WEB Api does not accept System.UI as argument", Scope = "member", Target = "~M:MichaelChecksum.SHA1moneController.Hash(System.String)~Microsoft.AspNetCore.Mvc.ActionResult")]
+using System.Diagnostics.CodeAnalysis;
 
+[assembly: SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "This is a play on words, referring to abbreviation SHA1", Scope = "type", Target = "~T:MichaelChecksum.SHA1moneController")]
+[assembly: SuppressMessage("Naming", "VSSpell001:Spell Check", Justification = "This is a play on words, referring to abbreviation SHA1", Scope = "type", Target = "~T:MichaelChecksum.SHA1moneController")]
+[assembly: SuppressMessage("Minor Code Smell", "S1075:URIs should not be hardcoded", Justification = "GitHub repo not configurable for now", Scope = "member", Target = "~M:MichaelChecksum.Startup.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection)")]

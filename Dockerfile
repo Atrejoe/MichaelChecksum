@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /app
 
 # Copy csproj and restore as distinct layers
@@ -7,7 +7,7 @@ RUN dotnet restore
 RUN dotnet publish MichaelChecksum -c Release -o out
 
 # Build runtime image
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine
 WORKDIR /app
-COPY --from=build-env /app/out .
+COPY --from=build /app/out .
 ENTRYPOINT ["dotnet", "MichaelChecksum.dll"]
