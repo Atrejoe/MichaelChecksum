@@ -18,7 +18,7 @@ jobs:
     - name: Build Docker image
       # You may pin to the exact commit or the version.
       # uses: docker/build-push-action@ab83648e2e224cfeeab899e23b639660765c3a89
-      uses: docker/build-push-action@v4
+      uses: docker/build-push-action@v5
       with:
         push: false
         tags: atreyu/michaelchecksum:latest
