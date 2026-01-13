@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: michaelchecksum
+  namespace: michaelchecksum
+  labels:
+    app: michaelchecksum
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: michaelchecksum
+  template:
+    metadata:
+      labels:
+        app: michaelchecksum
+    spec:
+      containers:
+      - name: web
+        image: atreyu/michaelchecksum:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 5000
+          name: http
+        - containerPort: 5001
+          name: https
+        env:
+        - name: ASPNETCORE_ENVIRONMENT
+          value: "Development"
+        - name: ASPNETCORE_URLS
+          value: "http://0.0.0.0:5000/"
+        resources:
+          limits:
+            cpu: "1"
+            memory: "1Gi"
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          allowPrivilegeEscalation: false
+          seccompProfile:
+            type: RuntimeDefault
+          capabilities:
+            drop:
+            - ALL
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchLabels:
+                  app: michaelchecksum
+              topologyKey: kubernetes.io/hostname
