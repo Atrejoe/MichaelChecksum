@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Builds and tests libraries & app
-    runs-on: ubuntu-lates
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
