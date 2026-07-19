@@ -10,7 +10,7 @@ on:
 jobs:
   build:
     name: Builds and tests libraries & app
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-lates
 
     steps:
     - uses: actions/checkout@v3
@@ -23,9 +23,6 @@ jobs:
     # See also DockerFile
     - name: Update apt-get package index
       run: sudo apt-get update -y
-
-    - name: Install Ghostscript (for rendering PDFs)
-      run: sudo apt-get install -y ghostscript
     
     - name: Install Time Zone data
       run: sudo apt-get install -y tzdata
