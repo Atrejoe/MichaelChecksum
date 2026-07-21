@@ -1,8 +1,8 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
 		<OutputType>Exe</OutputType>
-		<TargetFramework>net8.0</TargetFramework>
+		<TargetFramework>net10.0</TargetFramework>
 		<Features>flow-analysis</Features>
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
@@ -12,13 +12,14 @@
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PackAsTool>true</PackAsTool>
 		<ToolCommandName>michaelchecksum</ToolCommandName>
-		<Version>0.0.0.7</Version>
+		<Version>0.0.0.8</Version>
 		<Company></Company>
 		<Authors>Robert Sirre</Authors>
 		<Product>MichaelChecksum</Product>
 		<Description>A .Net core global tool for checksum calculation.</Description>
 		<PackageTags>checksum sha1 shamone sha1mone</PackageTags>
 		<PackageReleaseNotes>
+			0.0.0.8 Upgraded to .Net 10
 			0.0.0.7 Upgraded to .Net 8
 			0.0.0.6 Upgraded to .Net 7
 			0.0.0.5 Upgraded to .Net Core 3.1

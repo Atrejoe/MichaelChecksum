@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
 namespace MichaelChecksum
 {
@@ -14,16 +14,19 @@ namespace MichaelChecksum
 		/// <param name="args"></param>
 		public static void Main(string[] args)
 		{
-			CreateWebHostBuilder(args).Build().Run();
+			CreateHostBuilder(args).Build().Run();
 		}
 
 		/// <summary>
-		/// Created a webhost.
+		/// Creates an IHostBuilder for the application.
 		/// </summary>
 		/// <param name="args"></param>
 		/// <returns></returns>
-		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-			WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>();
+		public static IHostBuilder CreateHostBuilder(string[] args) =>
+			Host.CreateDefaultBuilder(args)
+				.ConfigureWebHostDefaults(webBuilder =>
+				{
+					webBuilder.UseStartup<Startup>();
+				});
 	}
 }
