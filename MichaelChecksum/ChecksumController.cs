@@ -1,4 +1,5 @@
 ﻿using MichaelChecksum.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
@@ -19,6 +20,7 @@ namespace MichaelChecksum
 		/// <param name="hihi">The text to calculate the hash for</param>
 		/// <returns>The string representataion of the <see cref="SHA1"/> hash of <paramref name="hihi"/>.</returns>
 		[HttpGet]
+		[ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
 		public ActionResult SHAmone([MaxLength(1024 * 1024)] string hihi)
 		{
 			var result = Hashing.GetHash(hihi);

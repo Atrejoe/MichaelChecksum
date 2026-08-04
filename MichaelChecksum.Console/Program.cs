@@ -18,7 +18,7 @@ namespace MichaelChecksum.Console
 		{
 			if (!(args?.Any()).GetValueOrDefault())
 			{
-				Error.WriteLine(Resources.Input_Validation_Missing_File_name);
+				await Error.WriteLineAsync(Resources.Input_Validation_Missing_File_name).ConfigureAwait(false);
 				return (int)ExitCode.FileNotSpecified;
 			}
 
