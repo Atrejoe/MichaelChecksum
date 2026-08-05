@@ -110,8 +110,18 @@ To calculate a checkum of a remote:
 
             services.Configure<ForwardedHeadersOptions>(options =>
             {
-                options.KnownProxies.Add(IPAddress.Parse("192.168.1.110"));
-                options.KnownProxies.Add(IPAddress.Parse("192.168.1.101"));
+                // Known reverse-proxy addresses are supplied via the KNOWN_PROXIES
+                // environment variable (comma- or semicolon-separated) rather than
+                // hardcoded, e.g. KNOWN_PROXIES="192.168.1.110,192.168.1.101".
+                var knownProxies = Environment.GetEnvironmentVariable("KNOWN_PROXIES");
+                if (!string.IsNullOrWhiteSpace(knownProxies))
+                {
+                    foreach (var entry in knownProxies.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+                    {
+                        if (IPAddress.TryParse(entry, out var proxy))
+                            options.KnownProxies.Add(proxy);
+                    }
+                }
             });
         }
 
@@ -135,7 +145,7 @@ To calculate a checkum of a remote:
             });
 
 
-            if (string.Equals(env.EnvironmentName, "Development", StringComparison.InvariantCultureIgnoreCase))
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
