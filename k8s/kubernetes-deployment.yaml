@@ -26,9 +26,13 @@ spec:
           name: https
         env:
         - name: ASPNETCORE_ENVIRONMENT
-          value: "Development"
+          value: "Production"
         - name: ASPNETCORE_URLS
           value: "http://0.0.0.0:5000/"
+        # Reverse-proxy addresses trusted for X-Forwarded-For/-Proto headers.
+        # Read by Startup.ConfigureServices (ForwardedHeadersOptions.KnownProxies).
+        - name: KNOWN_PROXIES
+          value: "192.168.1.110,192.168.1.101"
         resources:
           limits:
             cpu: "1"
