@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi;
 using System;
 using System.IO;
@@ -108,11 +110,27 @@ To calculate a checkum of a remote:
                 c.IncludeXmlComments(xmlPath, true);
             });
 
-            services.Configure<ForwardedHeadersOptions>(options =>
-            {
-                options.KnownProxies.Add(IPAddress.Parse("192.168.1.110"));
-                options.KnownProxies.Add(IPAddress.Parse("192.168.1.101"));
-            });
+            services.AddOptions<ForwardedHeadersOptions>()
+                .Configure<ILoggerFactory>((options, loggerFactory) =>
+                {
+                    options.ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto;
+
+                    // Known reverse-proxy addresses are supplied via the KNOWN_PROXIES
+                    // environment variable (comma- or semicolon-separated) rather than
+                    // hardcoded, e.g. KNOWN_PROXIES="192.168.1.110,192.168.1.101".
+                    var knownProxies = Environment.GetEnvironmentVariable("KNOWN_PROXIES");
+                    if (!string.IsNullOrWhiteSpace(knownProxies))
+                    {
+                        var logger = loggerFactory.CreateLogger<Startup>();
+                        foreach (var entry in knownProxies.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries))
+                        {
+                            if (IPAddress.TryParse(entry, out var proxy))
+                                options.KnownProxies.Add(proxy);
+                            else
+                                logger.LogWarning("Ignoring invalid IP address in KNOWN_PROXIES: {Entry}", entry);
+                        }
+                    }
+                });
         }
 
 		/// <summary>
@@ -129,13 +147,12 @@ To calculate a checkum of a remote:
 
 			app.UseStaticFiles();
             app.UseRouting();
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
-            {
-                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
-            });
+            // Uses the DI-configured ForwardedHeadersOptions (flags + KnownProxies
+            // from KNOWN_PROXIES); the no-argument overload reads it from options.
+            app.UseForwardedHeaders();
 
 
-            if (string.Equals(env.EnvironmentName, "Development", StringComparison.InvariantCultureIgnoreCase))
+            if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
