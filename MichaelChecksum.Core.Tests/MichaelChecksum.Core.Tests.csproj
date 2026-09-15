@@ -17,7 +17,7 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.9.0" />
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.10.1" />
 		<PackageReference Include="SonarAnalyzer.CSharp" Version="10.33.0.1635">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
